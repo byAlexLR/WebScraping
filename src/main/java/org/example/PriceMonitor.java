@@ -11,11 +11,12 @@ import java.net.URL;
 public class PriceMonitor {
 
     public static void main(String[] args) {
-        String urlString = "https://www.ejemplo.com"; // Reemplaza con la URL de tu interés
+        String urlString = "https://www.ejemplo.com"; // Reemplazar con una URL válida
+
         try {
             String htmlContent = obtenerHTML(urlString);
             if (htmlContent != null) {
-                extraerPrecios(htmlContent);
+                extraerDatosProductos(htmlContent);
             } else {
                 System.out.println("No se pudo obtener el contenido HTML.");
             }
@@ -24,6 +25,7 @@ public class PriceMonitor {
         }
     }
 
+    // Método para obtener el HTML de la página
     private static String obtenerHTML(String urlString) {
         StringBuilder content = new StringBuilder();
         try {
@@ -54,16 +56,27 @@ public class PriceMonitor {
         return content.toString();
     }
 
-    private static void extraerPrecios(String html) {
+    // Método para extraer nombre y precio de los productos
+    private static void extraerDatosProductos(String html) {
         Document doc = Jsoup.parse(html);
-        Elements priceElements = doc.select(".price"); // Ajustar según la estructura de la web
 
-        if (priceElements.isEmpty()) {
-            System.out.println("No se encontraron precios.");
+        // Ajusta los selectores según la estructura de la página web
+        Elements productos = doc.select(".product-item"); // Clase del contenedor del producto
+
+        if (productos.isEmpty()) {
+            System.out.println("No se encontraron productos.");
         } else {
-            System.out.println("\nPrecios encontrados:");
-            for (Element priceElement : priceElements) {
-                System.out.println(priceElement.text());
+            System.out.println("\n📌 Productos encontrados:");
+            for (Element producto : productos) {
+                String nombre = producto.select(".product-title").text(); // Selector del nombre
+                String precio = producto.select(".price").text(); // Selector del precio
+
+                // Validar que se obtuvo un nombre y un precio
+                if (!nombre.isEmpty() && !precio.isEmpty()) {
+                    System.out.println("🛒 Producto: " + nombre);
+                    System.out.println("💰 Precio: " + precio);
+                    System.out.println("-------------------------");
+                }
             }
         }
     }
