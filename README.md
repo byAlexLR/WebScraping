@@ -21,5 +21,4 @@ WebScraping/
 │   ├── result.json              # Archivo que guarda los resultados
 ```
 ---
-Hecho con ❤️ por PEDRO!!
-
+Este proyecto ha sido realizado con la ayuda de la inteligencia artificial, cumpliendo así los requisitos especificados en el módulo de Digitalización (1º CFGS - Desarrollo de Aplicaciones Multiplataforma). 🧑🏻‍💻
