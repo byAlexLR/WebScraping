@@ -1,4 +1,4 @@
-# 🃏 Web Scraping - Alejandro & Larian
+# 🖥️ Web Scraping - Alejandro & Larian
 
 ## 📌 Cronograma del Proyecto: Monitorización de Precios
 
