@@ -11,46 +11,60 @@ import java.net.URL;
 public class PriceMonitor {
 
     public static void main(String[] args) {
+        String urlString = "https://www.ejemplo.com"; // Reemplaza con la URL de tu interés
         try {
-            // URL del sitio web a scrapear
-            String urlString = "https://www.ejemplo.com"; // Reemplaza con la URL de tu interés
-            URL url = new URL(urlString);
-
-            // Configuración de la conexión HTTP usando HttpURLConnection
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET"); // Usar GET para obtener el contenido
-            connection.setConnectTimeout(5000); // Tiempo de espera para la conexión
-            connection.setReadTimeout(5000);    // Tiempo de espera para la lectura de datos
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0"); // Añadir un User-Agent para evitar bloqueos por bots
-
-            // Leer el contenido de la página
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder content = new StringBuilder();
-            
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
+            String htmlContent = obtenerHTML(urlString);
+            if (htmlContent != null) {
+                extraerPrecios(htmlContent);
+            } else {
+                System.out.println("No se pudo obtener el contenido HTML.");
             }
-            in.close();
+        } catch (Exception e) {
+            System.err.println("Error en la ejecución: " + e.getMessage());
+        }
+    }
 
-            // Imprimir el HTML obtenido (Opcional)
-            System.out.println("HTML Obtenido:");
-            System.out.println(content.toString());
+    private static String obtenerHTML(String urlString) {
+        StringBuilder content = new StringBuilder();
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-            // Usar Jsoup para analizar el HTML
-            Document doc = Jsoup.parse(content.toString());
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                System.err.println("Error: Código de respuesta HTTP " + responseCode);
+                return null;
+            }
 
-            // Buscar todos los elementos con la clase 'price' (esto depende de la estructura HTML de la página)
-            Elements priceElements = doc.select(".price"); // Cambia esto según lo que estés buscando
-
-            // Mostrar los precios encontrados
-            System.out.println("\nPrecios encontrados:");
-            for (Element priceElement : priceElements) {
-                System.out.println(priceElement.text()); // Imprime el texto del elemento (que sería el precio)
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener el HTML: " + e.getMessage());
+            return null;
+        }
+        return content.toString();
+    }
+
+    private static void extraerPrecios(String html) {
+        Document doc = Jsoup.parse(html);
+        Elements priceElements = doc.select(".price"); // Ajustar según la estructura de la web
+
+        if (priceElements.isEmpty()) {
+            System.out.println("No se encontraron precios.");
+        } else {
+            System.out.println("\nPrecios encontrados:");
+            for (Element priceElement : priceElements) {
+                System.out.println(priceElement.text());
+            }
         }
     }
 }
