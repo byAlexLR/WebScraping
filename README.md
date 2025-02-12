@@ -19,7 +19,6 @@ WebScraping/
 │   ├── PriceMonitor.java        # Código fuente del proyecto
 │── output/                      
 │   ├── result.json              # Archivo que guarda los resultados
-
 ```
 ---
 Hecho con ❤️ por PEDRO!!
