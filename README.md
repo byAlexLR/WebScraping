@@ -1,0 +1,26 @@
+# 🃏 Web Scraping - Alejandro & Larian
+
+## 📌 Cronograma del Proyecto: Monitorización de Precios
+
+| **Sesión** | **Actividades**                                                                                       | **Duración Estimada** |
+|------------|-------------------------------------------------------------------------------------------------------|-----------------------|
+| **Sesión 1** | - Configuración del entorno de desarrollo. <br> - Creación de la estructura básica del proyecto. <br> - Realización de solicitudes HTTP. <br> - Verificación de la obtención de HTML. | 1-2 días |
+| **Sesión 2** | - Implementación de lógica para parsear HTML. <br> - Uso de librerías para extracción de datos. <br> - Verificación de extracción de datos. | 2-3 días |
+| **Sesión 3** | - Almacenamiento de datos (CSV/JSON). <br> - Implementación de actualización periódica. <br> - Verificación del almacenamiento y actualización de datos. | 2 días |
+| **Sesión 4** | - Integración de todas las partes del proyecto. <br> - Manejo de errores y validaciones. <br> - Pruebas de flujo completo y simulación de fallos. | 2-3 días |
+| **Sesión 5** | - Documentación en el archivo `README.md`. <br> - Pruebas finales y presentación. <br> - Demostración del scraper en funcionamiento. | 1-2 días |
+
+## 📂 Estructura del Proyecto
+```
+WebScraping/
+│── README.md                    # Documentación del proyecto
+│── pom.xml                      # Dependencias
+│── src/main/java/org/example    
+│   ├── PriceMonitor.java        # Código fuente del proyecto
+│── output/                      
+│   ├── result.json              # Archivo que guarda los resultados
+
+```
+---
+Hecho con ❤️ por PEDRO!!
+
