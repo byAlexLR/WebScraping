@@ -32,7 +32,7 @@ WebScraping/
 ## 🚀 Instrucciones para Ejecutarlo
 1. Clonar el repositorio:  
    ```sh
-   git clone https://github.com/Larian-DAM/WebScraping.git
+   git clone https://github.com/byAlexLR/WebScraping.git
    ```
 2. Navegar al directorio del proyecto:
    ```sh
