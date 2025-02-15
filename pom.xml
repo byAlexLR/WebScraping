@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Información del proyecto -->
     <groupId>com.mycompany</groupId>
-    <artifactId>webscaping</artifactId>
+    <artifactId>webscraping</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>PriceMonitor</name>
     <url>http://maven.apache.org</url>
 
+    <!-- Definir la versión de Java -->
+    <properties>
+        <maven.compiler.release>23</maven.compiler.release> <!-- Ahora usa release en vez de source/target -->
+    </properties>
+
     <!-- Dependencias -->
     <dependencies>
-        <!-- Dependencia de Jsoup -->
+        <!-- Dependencia de Jsoup & JSON -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.15.3</version> <!-- Usa la versión más reciente disponible -->
+            <version>1.17.2</version> <!-- Última versión estable -->
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version> <!-- Última versión estable -->
         </dependency>
     </dependencies>
 
@@ -31,9 +42,20 @@
         </repository>
     </repositories>
 
-    <!-- Plugin para ejecutar la aplicación -->
+    <!-- Configuración del compilador -->
     <build>
         <plugins>
+            <!-- Configurar el compilador para la versión correcta de Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin para ejecutar la aplicación -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -46,7 +68,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.mycompany.webscaping.PriceMonitor</mainClass>
+                    <mainClass>com.mycompany.webscraping.PriceMonitor</mainClass> <!-- Corrección del paquete -->
                 </configuration>
             </plugin>
         </plugins>
